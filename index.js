@@ -268,6 +268,10 @@ const accountType = async (TUPCID) => {
 };
 //END FUNCTIONS
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend is working!', timestamp: new Date() });
+});
+
 app.post("/StudentRegister", async (req, res) => {
   const {
     TUPCID,
