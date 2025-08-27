@@ -3656,13 +3656,13 @@ app.post("/AddCombo", async (req, res) => {
     const [maxIdResult] = await connection.query(maxIdQuery);
     const nextId = (maxIdResult[0].maxId || 0) + 1;
     
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      const value = req.body[key];
-      console.log(key, value);
-      const query = `INSERT INTO ${types.toLowerCase()}combo (id, ${key}) VALUES (?, ?)`;
-      await connection.query(query, [nextId + i, value]);
-    }
+    const columns = ['id', ...keys].join(', ');
+    const placeholders = ['?', ...keys.map(() => '?')].join(', ');
+    const values = [nextId, ...keys.map(key => req.body[key])];
+    
+    const query = `INSERT INTO ${types.toLowerCase()}combo (${columns}) VALUES (${placeholders})`;
+    await connection.query(query, values);
+    
     console.log("DONE");
     return res.status(200).send({ message: "DONE" });
   } catch (error) {
