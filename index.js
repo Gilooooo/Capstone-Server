@@ -3650,7 +3650,7 @@ app.get("/Studentname2", async (req, res) => {
 //For Combo boxes
 app.post("/AddCombo", async (req, res) => {
   const { types } = req.query;
-  const keys = Object.keys(req.body);
+  const keys = Object.keys(req.body).filter(key => key !== 'id');
   try {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
