@@ -354,11 +354,16 @@ app.post("/FacultyRegister", async (req, res) => {
     }
     const hashedPassword = await bcryptjs.hash(PASSWORD, 10);
     const uidTUPCID = await bcryptjs.hash(TUPCID, 2);
-
+    
+    const maxIdQuery = "SELECT MAX(id) as maxId FROM faculty_accounts";
+    const [maxIdResult] = await connection.query(maxIdQuery);
+    const nextId = (maxIdResult[0].maxId || 0) + 1;
+    
     const insertQuery =
-      "INSERT INTO faculty_accounts (uid, TUPCID, SURNAME, FIRSTNAME, MIDDLENAME, GSFEACC, SUBJECTDEPT, PASSWORD, REGISTEREDDATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+      "INSERT INTO faculty_accounts (id, uid, TUPCID, SURNAME, FIRSTNAME, MIDDLENAME, GSFEACC, SUBJECTDEPT, PASSWORD, REGISTEREDDATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
 
     await connection.query(insertQuery, [
+      nextId,
       uidTUPCID,
       TUPCID,
       SURNAME,
