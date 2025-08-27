@@ -12,7 +12,10 @@ const PDFDocument = require("pdfkit");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://capstone-auto-checker.vercel.app',],
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
