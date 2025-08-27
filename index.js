@@ -151,7 +151,7 @@ const sendAlert = async (GSFEACC) => {
   try {
     await transporter.sendMail(mailOptions);
   } catch (err) {
-    return res.status(500).send({ message: "Internal server error" });
+    throw err;
   }
 };
 //For matchCode sending code
@@ -174,7 +174,7 @@ const sendCode = async (GSFEACC, code) => {
   try {
     await transporter.sendMail(mailOptions);
   } catch (err) {
-    return res.status(500).send({ message: "Internal server error" });
+    throw err;
   }
 };
 //For sending the Message to the developer
@@ -195,7 +195,7 @@ const Reportproblem = async (GSFEACC, MESSAGE) => {
   try {
     await transporter.sendMail(mailOptions);
   } catch (err) {
-    return res.status(500).send({ message: "Internal server error" });
+    throw err;
   }
 };
 
@@ -210,7 +210,7 @@ const checkResultExits = async(TUPCID, UID) => {
       return false;
     }
   }catch(error){
-    return res.status(500).send({ message: "Internal server error" });
+    throw error;
   }
 
 }
@@ -266,7 +266,7 @@ const accountType = async (TUPCID) => {
       return null;
     }
   } catch (err) {
-    return res.status(500).send({ message: "Internal server error" });
+    throw err;
   }
 };
 //END FUNCTIONS
@@ -368,7 +368,7 @@ app.post("/FacultyRegister", async (req, res) => {
       SUBJECTDEPT,
       hashedPassword,
     ]);
-
+    console.log("Hello?", uidTUPCID);
     return res.status(200).send({ message: "Account successfully registered" });
   } catch (error) {
     console.error("Error:", error);
