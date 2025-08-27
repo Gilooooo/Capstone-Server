@@ -346,7 +346,7 @@ app.post("/FacultyRegister", async (req, res) => {
   try {
     await sendAlert(GSFEACC);
     const isAccountExist = await checkAccount(TUPCID);
-
+    console.log("Hello?", TUPCID);
     if (isAccountExist) {
       return res.status(409).send({
         message: "Account already registered",
@@ -369,10 +369,10 @@ app.post("/FacultyRegister", async (req, res) => {
       hashedPassword,
     ]);
     console.log("Hello?", uidTUPCID);
+    console.log("Hell???o?", uidTUPCID);
     return res.status(200).send({ message: "Account successfully registered" });
   } catch (error) {
-    console.error("Error:", error);
-    return res.status(500).send({ message: "Server error" });
+    throw err;
   }
 });
 
