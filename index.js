@@ -344,7 +344,6 @@ app.post("/FacultyRegister", async (req, res) => {
 
   //If the TUPCID is already registered
   try {
-    await sendAlert(GSFEACC);
     const isAccountExist = await checkAccount(TUPCID);
     console.log("Hello?", TUPCID);
     if (isAccountExist) {
@@ -373,8 +372,6 @@ app.post("/FacultyRegister", async (req, res) => {
       SUBJECTDEPT,
       hashedPassword,
     ]);
-    console.log("Hello?", uidTUPCID);
-    console.log("Hell???o?", uidTUPCID);
     return res.status(200).send({ message: "Account successfully registered" });
   } catch (error) {
     throw error;
