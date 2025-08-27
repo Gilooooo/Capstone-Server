@@ -3650,7 +3650,7 @@ app.get("/Studentname2", async (req, res) => {
 //For Combo boxes
 app.post("/AddCombo", async (req, res) => {
   const { types } = req.query;
-  const keys = Object.keys(req.body).filter(key => key !== 'id');
+  const keys = Object.keys(req.body);
   try {
     const maxIdQuery = `SELECT MAX(id) as maxId FROM ${types.toLowerCase()}combo`;
     const [maxIdResult] = await connection.query(maxIdQuery);
