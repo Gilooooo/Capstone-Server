@@ -372,7 +372,7 @@ app.post("/FacultyRegister", async (req, res) => {
     console.log("Hell???o?", uidTUPCID);
     return res.status(200).send({ message: "Account successfully registered" });
   } catch (error) {
-    throw err;
+    throw error;
   }
 });
 
